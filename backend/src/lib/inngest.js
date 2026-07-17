@@ -21,6 +21,11 @@ const syncUser = inngest.createFunction(
       profileImage: image_url,
     };
     await User.findOneAndUpdate({ clerkId: id }, newUser, { upsert: true });
+    await upsertStreamUser({
+      id,
+      name: newUser.name,
+      image: newUser.profileImage,
+    });
   },
 );
 
@@ -31,6 +36,8 @@ const deleteUser = inngest.createFunction(
     await connectDB();
     const { id } = event.data;
     await User.findOneAndDelete({ clerkId: id });
+
+    await deleteStreamUser(id.toString());
   },
 );
 export const functions = [syncUser, deleteUser];
