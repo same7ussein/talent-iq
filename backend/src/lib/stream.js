@@ -1,8 +1,8 @@
 import { StreamChat } from "stream-chat";
-import { env } from "./env.js";
+import { ENV } from "./env.js";
 
-const apiKey = env.STREAM_API_KEY;
-const apiSecret = env.STREAM_API_SECRET;
+const apiKey = ENV.STREAM_API_KEY;
+const apiSecret = ENV.STREAM_API_SECRET;
 
 if (!apiKey || !apiSecret) {
   throw new Error(
